@@ -14,7 +14,7 @@ from nltk.stem import WordNetLemmatizer
 
 # if x in set is much faster than if x in list
 stopwords_set = set(stopwords.words("english"))
-words_set = set(words.words())
+# words_set = set(words.words())
 punctuation_set = set(string.punctuation)
 
 global porter, lemmatizer
@@ -37,8 +37,7 @@ def clean_str(in_str: str) -> str:
         # if token in punctuation_set: continue
         if not token.isalpha():
             continue
-        if token not in words_set:
-            continue
+        # if token not in words_set:continue
         # convert to lower case
         token = token.lower()
         # token = porter.stem(token)
