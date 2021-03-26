@@ -22,6 +22,7 @@ In particular, the scraping parameters are:
 - Years range
 - Language
 - Number of result pages to scrape per year
+- Number of patents per page
 
 
 Then run `build_dataset.py` to build the dataset.
