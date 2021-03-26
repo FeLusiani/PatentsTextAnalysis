@@ -1,6 +1,13 @@
 # Patents Text Analysis
 
-Flexible, configurable code to perform web-scraping and text-mining on patents from Google Patents.
+Flexible, configurable code to perform web-scraping and text-analysis on patents from Google Patents.
+
+## Introduction
+The code has been developed for a project to study IBM's patents (see below), but has been made perfectly general-purpose. Cloning this repository, you can easily build and analyze your own dataset, choosing the assignee and the years of publication.
+
+## The IBM Patents dataset
+The code has been used to create the following dataset: [IBM Patents](https://www.kaggle.com/federicolusiani/ibm-patents).
+The dataset contains the metadata and text of **~60K** patents assigned to IBM, through the years 2000-2019. The aim of this project was to find and study topics and trends in IBM technologies by performing text analysis. The plots shown below have been generated using just a small sample from this dataset, and serve as examples.
 
 ## Installation
 ```
@@ -9,9 +16,9 @@ cd ./patents-nlp
 pip install -r requirements.txt
 ```
 
-The web-scraping is performed using [Selenium](https://selenium-python.readthedocs.io/). You'll need to download the Chrome driver [here](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+The web-scraping is performed using [Selenium](https://selenium-python.readthedocs.io/). You will need to download the Chrome driver [here](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 
-Finally, configure the paths in [conf.py](./conf.py).
+Finally, make sure to configure the paths in [conf.py](./conf.py).
 
 
 
@@ -79,11 +86,6 @@ Quantum comput.
  - Keywords: ['quantum']
 ```
 ![](./images/trends_plot.svg)
-
-## The IBM Patents dataset
-Using this code, we have created a dataset containing the metadata and text of **~60K** patents assigned to IBM, through the years 2000-2019.  
-The plots shown above have been generated using a small sample from this dataset.
-The dataset has been made avaiable on Kaggle at the following [link](https://www.kaggle.com/federicolusiani/ibm-patents).
 
 ## Authors
 
