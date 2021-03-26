@@ -18,7 +18,7 @@ def make_driver(driver_path:Path):
 
 
 def scrape_metadata(
-    assignee: str, year: int, lang: str, driver, save_path: Path,pages=10
+    assignee: str, year: int, lang: str, driver, save_path: Path,pages=10,page_results=50
 ):
     """Scrape patents metadata from Google Patents, querying for
     Assignee's name, Year and Language.
@@ -51,7 +51,7 @@ def scrape_metadata(
                 f"&before=priority:{year}{month:02d}31"
                 f"&after=priority:{year}{month:02d}01"
                 f"&language={lang}"
-                f"&num=100"
+                f"&num={page_results}"
                 f"&page={page}"
             )
 

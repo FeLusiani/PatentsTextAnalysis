@@ -10,7 +10,7 @@ from data_pipeline.clean_txt import batch_clean
 from utils.utils import merge_csv_files
 
 from conf import DRIVER_PATH, METADATA_DIR, YEARS, ASSIGNEE, LANG
-from conf import MAX_PDFS_PER_YEAR, PAGES_PER_YEAR
+from conf import MAX_PDFS_PER_YEAR, PAGES_PER_YEAR, RESULTS_PER_PAGE
 from conf import PDF_DIR, TXT_DIR, CLEAN_TXT_DIR, METADATA_CSV
 
 
@@ -50,7 +50,7 @@ if args.all or args.scrape:
     driver = make_driver(DRIVER_PATH)
     for y in YEARS:
         save_path = METADATA_DIR / Path(str(y) + '_patents.csv')
-        scrape_metadata(ASSIGNEE, y, LANG, driver, save_path, PAGES_PER_YEAR)
+        scrape_metadata(ASSIGNEE, y, LANG, driver, save_path, PAGES_PER_YEAR, RESULTS_PER_PAGE)
 
 if args.all or args.merge:
     merge_csv_files(METADATA_DIR, METADATA_CSV)
