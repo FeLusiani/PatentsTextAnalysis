@@ -8,7 +8,7 @@ TXT_DIR         = Path('/media/felusiani/Space/texts')
 # TXT_DIR         = BASE_DIR / Path('patents_txts')
 CLEAN_TXT_DIR   = Path('/media/felusiani/Space/cleaned_texts')
 #CLEAN_TXT_DIR   = BASE_DIR / Path('cleaned_txt')
-METADATA_CSV    = BASE_DIR / Path('metadata.csv')
+METADATA_CSV    = METADATA_DIR / Path('metadata.csv')
 CACHE_DIR       = BASE_DIR / Path('cache')
 
 # Read the README to see where to download the chrome driver

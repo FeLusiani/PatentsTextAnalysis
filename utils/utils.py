@@ -88,7 +88,7 @@ def add_month_column(df, csv_metadata):
     return df
 
 
-def get_topics_count(text_corpus, topics, max_count: int = None):
+def get_TopicDict_counts(text_corpus, TopicDict, max_count: int = None):
     """For every topic, returns frequency in the text corpus.
 
     Topic frequency = mean of topic keywords occurences.
@@ -97,7 +97,7 @@ def get_topics_count(text_corpus, topics, max_count: int = None):
 
     Args:
         txts (list): text corpus, given as list of texts.
-        topics (dictionary): Key is topic name, Value is a list of the topic keywords.
+        TopicDict (dictionary): Key is topic name, Value is a list of the topic keywords.
         max_count (int): if set, keyword count per text in corpus is capped at max_count.
 
     Returns:
@@ -106,8 +106,8 @@ def get_topics_count(text_corpus, topics, max_count: int = None):
     # concatenate topics keywords in one list
     # so we can apply CountVectorizer just once (better performance)
     words = []
-    for t in topics:
-        words += topics[t]
+    for t in TopicDict:
+        words += TopicDict[t]
 
     counter_vectorizer = CountVectorizer(vocabulary=words)
     txt_word_matrix = counter_vectorizer.fit_transform(text_corpus)
@@ -121,7 +121,7 @@ def get_topics_count(text_corpus, topics, max_count: int = None):
     word_count_array = np.sum(word_txt_matrix, axis=1)
     # for every topic, sum the respective words counts
     topic_count_list = []
-    for topic in topics.values():
+    for topic in TopicDict.values():
         matching_words = [(w in topic) for w in words]
         matching_counts = word_count_array[matching_words]
         topic_count = np.sum(matching_counts) / len(topic)
