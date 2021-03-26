@@ -5,33 +5,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 
-def df_from_txts(txts_dir):
-    """Generate dataframe from txt files in a directory.
-
-    Index "ID" will be the name of the txt file (stripped of the ".txt").
-    Column "Text" is the file content.
-
-    Args:
-        txts_dir (Path): directory containing the txt files
-
-    Returns:
-        pandas.Dataframe: dataframe. Index: "ID", Columns: "Text"
-    """
-
-    file_list = txts_dir.glob("**/*.txt")
-    doc_texts = {}
-
-    for f in file_list:
-        filename = f.stem
-        with open(f, errors="replace") as f_stream:
-            content = f_stream.read()
-        doc_texts[filename] = content
-
-    df = pd.DataFrame.from_dict(doc_texts, orient="index", columns=["Text"])
-    df.index.names = ["ID"]
-    return df
-
-
 def merge_csv_files(csv_dir: Path, csv_result: Path):
     """Appends all the csv files inside of `csv_dir` (and sub-directories)
     into one `csv_result` file.
