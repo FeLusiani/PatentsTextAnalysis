@@ -45,9 +45,10 @@ if args.delete:
     [rmtree(d,ignore_errors=True) for d in dirs]
 
 if args.all or args.scrape:
+    METADATA_DIR.mkdir(parents=True,exist_ok=True)
     driver = make_driver(DRIVER_PATH)
     for y in YEARS:
-        save_path = METADATA_DIR / Path(y + '_patents.csv')
+        save_path = METADATA_DIR / Path(str(y) + '_patents.csv')
         scrape_metadata(ASSIGNEE, y, LANG, driver, save_path, PAGES_PER_YEAR)
 
 if args.all or args.merge:
