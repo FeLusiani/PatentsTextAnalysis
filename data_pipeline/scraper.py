@@ -1,0 +1,120 @@
+import pandas as pd
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from pathlib import Path
+
+
+
+def make_driver(driver_path:Path):
+    options = Options()
+    options.headless = True
+    # options.add_argument("--window-size=1920,1200")
+    driver = webdriver.Chrome(executable_path=driver_path, options=options)
+    return driver
+
+
+def scrape_metadata(
+    assignee: str, years: list, lang: str, driver, metadata_dir: Path
+):
+    for Y in years:
+        metadata = {
+            "Name": [],
+            "Title": [],
+            "Active_Countries": [],
+            "Author": [],
+            "Link": [],
+            "Date_Priority": [],
+            "Date_Filed": [],
+            "Date_Published": [],
+            "Date_Granted": [],
+        }
+        for M in range(1, 13):
+            for i in range(10):
+                URL = (
+                    f"https://patents.google.com/"
+                    f"?assignee={assignee}"
+                    f"&before=priority:{Y}{M:02d}31"
+                    f"&after=priority:{Y}{M:02d}01"
+                    f"&language={lang}"
+                    f"&num=100"
+                    f"&page={i}"
+                )
+
+                driver.get(URL)
+
+                try:
+                    WebDriverWait(driver, 2).until(
+                        EC.presence_of_element_located((By.CLASS_NAME, "pdfLink"))
+                    )
+                except:
+                    break
+
+                patents_in_page = driver.find_elements_by_tag_name("search-result-item")
+
+                for patent in patents_in_page:
+                    if len(patent.find_elements_by_class_name("pdfLink")) == 0:
+                        continue
+                    # print(f"Patent number {len(metadata['Name'])}")
+                    metadata_element = patent.find_element_by_class_name("metadata")
+                    ###print("Getting Name")
+                    metadata["Name"].append(
+                        patent.find_element_by_class_name("pdfLink")
+                        .get_attribute("href")
+                        .split("/")[-1]
+                    )
+                    ###print("Getting Title")
+                    metadata["Title"].append(
+                        patent.find_element_by_class_name("result-title")
+                        .find_element_by_tag_name("span")
+                        .get_attribute("innerHTML")
+                    )
+                    # Note that we could save not-active and unknown countries aswell
+                    ###print("Getting Active_Countries")
+                    active_countries = [
+                        x.get_attribute("innerHTML")
+                        for x in metadata_element.find_elements_by_class_name("active")
+                    ]
+                    metadata["Active_Countries"].append(" ".join(active_countries))
+                    ###print("Getting Author")
+                    metadata["Author"].append(
+                        metadata_element.find_element_by_css_selector(
+                            "span:nth-last-child(2)"
+                        )
+                        .find_element_by_id("htmlContent")
+                        .get_attribute("innerHTML")
+                    )
+                    ###print("Getting Link")
+                    metadata["Link"].append(
+                        patent.find_element_by_class_name("pdfLink").get_attribute(
+                            "href"
+                        )
+                    )
+                    ###print("Getting Dates")
+                    metadata["Date_Priority"].append("")
+                    metadata["Date_Filed"].append("")
+                    metadata["Date_Published"].append("")
+                    metadata["Date_Granted"].append("")
+                    for date in (
+                        patent.find_element_by_class_name("dates")
+                        .get_attribute("innerHTML")
+                        .split(" • ")
+                    ):
+                        datetype, dateval = date.split(" ")
+                        metadata["Date_" + datetype][-1] = dateval
+
+            print(
+                f"Scraped month {M}/{Y} for a total of {len(metadata['Link'])} entries."
+            )
+
+        # Save data in a dataframe
+        print(f"Saving year {Y} data...")
+        df_metadata = pd.DataFrame.from_dict(metadata)
+
+        # Save the dataframe in memory
+        metadata_dir.mkdir(exist_ok=True, parents=True)
+        filepath = metadata_dir / Path(f"{Y}_patent_metadata.csv")
+        df_metadata.to_csv(filepath)
