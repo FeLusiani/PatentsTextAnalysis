@@ -21,9 +21,7 @@ def download_from_mtdt(metadata_dir:Path, pdf_dir:Path, overwrite=True):
     for file in mtdt_files:
         print(f'\t {file}')
 
-    print()
-    print(f'Overwrite existing pdfs: {overwrite}')
-    print()
+    print(f'\n Overwrite existing pdfs: {overwrite} \n')
     for file in mtdt_files:
         df = pd.read_csv(file)
         year = df.loc[0,'Date_Priority'][:4]
