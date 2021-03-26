@@ -1,6 +1,7 @@
 import argparse
 from shutil import rmtree
 import logging
+from pathlib import Path
 
 from data_pipeline.scraper import make_driver, scrape_metadata
 from data_pipeline.pdf_download import download_from_mtdt
@@ -8,7 +9,7 @@ from data_pipeline.pdf2txt import batch_convert
 from data_pipeline.clean_txt import batch_clean
 from utils.utils import merge_csv_files
 
-from conf import DRIVER_PATH, METADATA_DIR, YEARS, ASSIGNEE, LANG
+from conf import DRIVER_PATH, METADATA_DIR, YEARS, ASSIGNEE, LANG, PAGES_PER_YEAR
 from conf import PDF_DIR, TXT_DIR, CLEAN_TXT_DIR, METADATA_CSV
 
 
@@ -45,7 +46,9 @@ if args.delete:
 
 if args.all or args.scrape:
     driver = make_driver(DRIVER_PATH)
-    scrape_metadata(ASSIGNEE, YEARS, LANG, driver, METADATA_DIR)
+    for y in YEARS:
+        save_path = METADATA_DIR / Path(y + '_patents.csv')
+        scrape_metadata(ASSIGNEE, y, LANG, driver, save_path, PAGES_PER_YEAR)
 
 if args.all or args.merge:
     merge_csv_files(METADATA_DIR, METADATA_CSV)

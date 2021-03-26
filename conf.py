@@ -16,4 +16,5 @@ DRIVER_PATH     = BASE_DIR / Path('chromedriver')
 YEARS = range(2011,2012+1)
 ASSIGNEE = 'IBM'
 LANG = 'ENGLISH'
+PAGES_PER_YEAR = 10
 
