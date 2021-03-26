@@ -4,10 +4,8 @@ from pathlib import Path
 BASE_DIR        = Path.home() / Path('Projects/IBM_proj')
 METADATA_DIR    = BASE_DIR / Path('metadata')
 PDF_DIR         = BASE_DIR / Path('patents_pdf')
-TXT_DIR         = Path('/media/felusiani/Space/texts')
-# TXT_DIR         = BASE_DIR / Path('patents_txts')
-CLEAN_TXT_DIR   = Path('/media/felusiani/Space/cleaned_texts')
-#CLEAN_TXT_DIR   = BASE_DIR / Path('cleaned_txt')
+TXT_DIR         = BASE_DIR / Path('patents_txts')
+CLEAN_TXT_DIR   = BASE_DIR / Path('cleaned_txt')
 METADATA_CSV    = METADATA_DIR / Path('metadata.csv')
 CACHE_DIR       = BASE_DIR / Path('cache')
 
