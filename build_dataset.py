@@ -9,7 +9,8 @@ from data_pipeline.pdf2txt import batch_convert
 from data_pipeline.clean_txt import batch_clean
 from utils.utils import merge_csv_files
 
-from conf import DRIVER_PATH, METADATA_DIR, YEARS, ASSIGNEE, LANG, PAGES_PER_YEAR
+from conf import DRIVER_PATH, METADATA_DIR, YEARS, ASSIGNEE, LANG
+from conf import MAX_PDFS_PER_YEAR, PAGES_PER_YEAR
 from conf import PDF_DIR, TXT_DIR, CLEAN_TXT_DIR, METADATA_CSV
 
 
@@ -55,7 +56,7 @@ if args.all or args.merge:
     merge_csv_files(METADATA_DIR, METADATA_CSV)
 
 if args.all or args.download:
-    download_from_mtdt(METADATA_DIR, PDF_DIR, args.overwrite)
+    download_from_mtdt(METADATA_DIR, PDF_DIR, args.overwrite, MAX_PDFS_PER_YEAR)
 
 if args.all or args.convert:
     batch_convert(PDF_DIR, TXT_DIR, args.overwrite, args.multiproc)

@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # PATHS
-BASE_DIR        = Path.home() / Path('Projects/IBM_proj')
+BASE_DIR        = Path.home() / Path('Projects/Microsoft_proj')
 METADATA_DIR    = BASE_DIR / Path('metadata')
 PDF_DIR         = BASE_DIR / Path('patents_pdf')
 TXT_DIR         = BASE_DIR / Path('patents_txts')
@@ -13,8 +13,11 @@ CACHE_DIR       = BASE_DIR / Path('cache')
 DRIVER_PATH     = BASE_DIR / Path('chromedriver')
 
 # SCRAPER
-YEARS = range(2011,2012+1)
-ASSIGNEE = 'IBM'
+YEARS = range(2013,2020+1)
+ASSIGNEE = 'Microsoft'
 LANG = 'ENGLISH'
-PAGES_PER_YEAR = 10
+PAGES_PER_YEAR = 1
+
+# DOWNLOADER
+MAX_PDFS_PER_YEAR = 300
 

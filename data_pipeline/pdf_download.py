@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 import argparse
 
-def download_from_mtdt(metadata_dir:Path, pdf_dir:Path, overwrite=True):
+def download_from_mtdt(metadata_dir:Path, pdf_dir:Path, overwrite=True, max_per_year=1e4):
     """Downloads the pdfs linked in the metadata files.
 
     Args:
@@ -23,7 +23,7 @@ def download_from_mtdt(metadata_dir:Path, pdf_dir:Path, overwrite=True):
 
     print(f'\n Overwrite existing pdfs: {overwrite} \n')
     for file in mtdt_files:
-        df = pd.read_csv(file)
+        df = pd.read_csv(file).head(max_per_year)
         year = df.loc[0,'Date_Priority'][:4]
         links = df.loc[:,'Link']
 
