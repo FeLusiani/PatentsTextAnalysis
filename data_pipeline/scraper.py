@@ -124,4 +124,4 @@ def scrape_metadata(
     # Save data
     print(f"Saving year {year} data...")
     df_metadata = pd.DataFrame.from_dict(metadata)
-    df_metadata.to_csv(save_path)
+    df_metadata.to_csv(save_path,index=False)
