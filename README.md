@@ -21,7 +21,7 @@ In particular, the scraping parameters are:
 - Assignee's name
 - Years range
 - Language
-- Number of result pages to scrape per year
+- Number of result pages to scrape per month
 - Number of patents per page
 
 
