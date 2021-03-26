@@ -9,21 +9,6 @@ from functools import partial
 # 2 or more consecutive \s
 spaces_regex = re.compile(r"\s{2,}")
 
-def clean(txt: str) -> str:
-    """Cleaning function applied to text.
-
-    Used by `pdf_to_txt` on the text extracted, before saving to file.
-    Can be edited to insert other text processing you wish to perform before saving.
-    Args:
-        txt (str): input text
-
-    Returns:
-        str: cleaned text.
-    """
-    # compact spaces
-    txt = spaces_regex.sub(" ", txt)
-    return txt
-
 
 def pdf_to_txt(orig: Path, dest: Path = None, overwrite=True):
     """
@@ -51,11 +36,16 @@ def pdf_to_txt(orig: Path, dest: Path = None, overwrite=True):
         return False
     
     # this happens if the pdf is a scan
-    if txt is None or len(txt) < 300:
-        logging.info(f" Did not save output text for {orig} (output length too small)")
+    if txt is None:
+        logging.info(f" Did not save output text for {orig} (no OCR output)")
         return False
+    
+    # compact spaces
+    txt = spaces_regex.sub(" ", txt)
+    # len too small: probably not flawed OCR output
+    if len(txt) < 500:
+        logging.info(f" Did not save output text for {orig} (output length too small)")
 
-    txt = clean(txt)
     with open(dest_file, "w", errors="replace") as text_file:
         text_file.write(txt)
 
