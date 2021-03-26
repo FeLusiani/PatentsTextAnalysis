@@ -16,7 +16,14 @@ Finally, configure the paths in [conf.py](./conf.py).
 
 
 ## Building the dataset 
-Configure the assignee, the time range, and the language in [conf.py](./conf.py).
+Configure the application paths and the scraping parameters in [conf.py](./conf.py).
+In particular, the scraping parameters are:
+- Assignee's name
+- Years range
+- Language
+- Number of result pages to scrape per year
+
+
 Then run `build_dataset.py` to build the dataset.
 
 ```
@@ -39,11 +46,38 @@ optional arguments:
   --verbose    show INFO logging
 ```
 
-## Text Analysis
+The pipeline for building the dataset  is the following:
 
-### Latent Semanantic Analysis (LSA)
+- Using the search criteria listed above, metadata of the patents is scraped from Google Patents, saving each year in its own `.csv` file.
+- The metadata files are merged in a single `.csv` file.
+- The patents listed in the unified `.csv` file are downloaded (as `.pdf` files).
+- The `.pdf` files are converted to `.txt` by performing OCR with the [tika](https://github.com/chrismattmann/tika-python) python library.
+- The `.txt` files are cleaned using the `nltk` python library: stop-words and punctuation removal, lemmification of tokens.
 
-### Fasttext
+### Latent Semantic Analysis (LSA)
+
+The code in [lsa_example.ipynb](./lsa_example.ipynb) shows how to perform a latent semantic analysis of the text corpus using the functions in the module `LSA`.
+
+The code performs TFIDF on the text corpus, and then factorizes the words_documents matrix (using either SVD or NMF method), yielding the words- and documents- embedding of the latent topics.
+
+![plot from lsa output](./images/lsa_plot.svg)
+
+The plot shows the top 10 topics found in text corpus (in this case, a sample from IBM's patents through the years 2000-2019). For each topic, the top 3 words are shown.
+
+### Analyzing the trends of chosen topic
+In the [topics_trends.ipynb](./topics_trends.ipynb) notebook, we perform an analysis of the trends of hand-made topics (sets of keywords) to study how their frequency changes through the years.
+
+```
+Medicine
+ - Keywords: ['medical', 'patient', 'health', 'treatment']
+ML
+ - Keywords: ['neural', 'train', 'recognition', 'learn']
+Aut. driving
+ - Keywords: ['vehicle', 'autonomous', 'park']
+Quantum comput.
+ - Keywords: ['quantum']
+```
+![](./images/trends_plot.svg)
 
 ## Authors
 
