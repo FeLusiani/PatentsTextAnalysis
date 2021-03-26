@@ -55,7 +55,7 @@ The pipeline for building the dataset  is the following:
 - The `.pdf` files are converted to `.txt` by performing OCR with the [tika](https://github.com/chrismattmann/tika-python) python library.
 - The `.txt` files are cleaned using the `nltk` python library: stop-words and punctuation removal, lemmification of tokens.
 
-### Latent Semantic Analysis (LSA)
+## Latent Semantic Analysis (LSA)
 
 The code in [lsa_example.ipynb](./lsa_example.ipynb) shows how to perform a latent semantic analysis of the text corpus using the functions in the module `LSA`.
 
@@ -65,7 +65,7 @@ The code performs TFIDF on the text corpus, and then factorizes the words_docume
 
 The plot shows the top 10 topics found in text corpus (in this case, a sample from IBM's patents through the years 2000-2019). For each topic, the top 3 words are shown.
 
-### Analyzing the trends of chosen topic
+## Analyzing the trends of chosen topic
 In the [topics_trends.ipynb](./topics_trends.ipynb) notebook, we perform an analysis of the trends of hand-made topics (sets of keywords) to study how their frequency changes through the years.
 
 ```
@@ -79,6 +79,11 @@ Quantum comput.
  - Keywords: ['quantum']
 ```
 ![](./images/trends_plot.svg)
+
+## The IBM Patents dataset
+Using this code, we have created a dataset containing the metadata and text of **~60K** patents assigned to IBM, through the years 2000-2019.  
+The plots shown above have been generated using a small sample from this dataset.
+The dataset has been made avaiable on Kaggle at the following [link](https://www.kaggle.com/federicolusiani/ibm-patents).
 
 ## Authors
 
