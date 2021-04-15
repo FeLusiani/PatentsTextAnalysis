@@ -68,9 +68,9 @@ The code in [lsa_example.ipynb](./lsa_example.ipynb) shows how to perform a late
 
 The code performs TFIDF on the text corpus, and then factorizes the words_documents matrix (using either SVD or NMF method), yielding the words- and documents- embedding of the latent topics.
 
-![plot from lsa output](./images/lsa_plot.svg)
+![plot from lsa output](./images/2019_NMF_T15.png)
 
-The plot shows the top 10 topics found in text corpus (in this case, a sample from IBM's patents through the years 2000-2019). For each topic, the top 3 words are shown.
+The plot shows the top 15 topics found in the text corpus (in this case, a sample from IBM's patents published in the year 2019). For each topic, the top 4 words are shown.
 
 ## Analyzing the trends of chosen topic
 In the [topics_trends.ipynb](./topics_trends.ipynb) notebook, we perform an analysis of the trends of hand-made topics (sets of keywords) to study how their frequency changes through the years.
