@@ -5,7 +5,7 @@ Flexible, configurable code to perform web-scraping and text-analysis on patents
 ## Introduction
 The code has been developed for a project to study IBM's patents (see below), but has been made perfectly general-purpose. Cloning this repository, you can easily build and analyze your own dataset, choosing the assignee and the years of publication.
 
-## The IBM Patents dataset
+## The IBM Patents dataset  [[link]](https://www.kaggle.com/federicolusiani/ibm-patents)
 The code has been used to create the following dataset: [IBM Patents](https://www.kaggle.com/federicolusiani/ibm-patents).
 The dataset contains the metadata and text of **~60K** patents assigned to IBM, through the years 2000-2019. The aim of this project was to find and study topics and trends in IBM technologies by performing text analysis. The plots shown below have been generated using just a small sample from this dataset, and serve as examples.
 
