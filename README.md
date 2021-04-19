@@ -11,7 +11,7 @@ The dataset contains the metadata and text of **~60K** patents assigned to IBM, 
 
 ## Installation
 ```
-git clone https://github.com/Maranc98/patents-nlp.git
+git clone https://github.com/FeLusiani/PatentsTextAnalysis.git
 cd ./patents-nlp
 pip install -r requirements.txt
 ```
